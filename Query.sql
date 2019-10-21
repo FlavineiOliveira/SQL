@@ -69,3 +69,25 @@ SET @FAIXADATA = CAST(@FUSO AS smalldatetime)
 
 SELECT @FAIXADATA, @FUSO
 
+-- ATENÇÃO: View é uma referência de algum dado de uma tabela existe, é possível realizar update da view, porém se atualizado, a tabela de onde os dados são referenciados também será atualizado.
+
+-- Instrução para criar a view 'VW_LOGUSU'
+CREATE VIEW VW_LOGUSU AS	
+	SELECT
+		E.USUARIOACESSO AS USUARIO	--	Referenciando a coluna 'USUARIOACESSO' da tabela 'ELOG', nomeando os dados da coluna como 'USUARIO'
+FROM ELOG E							
+
+-- Instrução alteração de view 'VW_LOGUSU'
+ALTER VIEW VW_LOGUSU 
+AS
+	SELECT  
+			USUARIOACESSO AS USUARIO,	--	Mantendo estrutura da coluna
+			DATAACESSO AS DATAUSUARIO	--	Adicionando coluna 'DATAUSUARIO'
+FROM ELOG								--	Com base nos dados da tabela 'ELOG'
+
+-- deleta a view 'VW_LOGUSU'
+DROP VIEW VW_LOGUSU	
+
+-- Select da view (É possível utilizar condições como uma tabela normal)
+SELECT* FROM VW_LOGUSU -- WHERE USUARIO = '123'
+
