@@ -1,5 +1,3 @@
-USE DBREAD
-
 -- Comando global
 DECLARE @COMANDO VARCHAR(8000)
 
